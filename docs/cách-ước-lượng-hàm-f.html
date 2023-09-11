@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.2 Cách ước lượng hàm f | bookdown: Authoring Books and Technical Documents with R Markdown</title>
+  <meta name="description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="generator" content="bookdown 0.35.1 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.2 Cách ước lượng hàm f | bookdown: Authoring Books and Technical Documents with R Markdown" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/yihui/bookdown//images/cover.jpg" />
+  <meta property="og:description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="github-repo" content="rstudio/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.2 Cách ước lượng hàm f | bookdown: Authoring Books and Technical Documents with R Markdown" />
+  
+  <meta name="twitter:description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="twitter:image" content="https://bookdown.org/yihui/bookdown//images/cover.jpg" />
+
+<meta name="author" content="Yihui Xie" />
+
+
+<meta name="date" content="2023-09-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tại-sao-cần-hàm-f.html"/>
+<link rel="next" href="uớc-lượng-phi-tham-số-non---parametric-methods.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Authoring Books with R Markdown</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-read-this-book.html"><a href="why-read-this-book.html"><i class="fa fa-check"></i>Why read this book</a></li>
+<li class="chapter" data-level="" data-path="structure-of-the-book.html"><a href="structure-of-the-book.html"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="software-information-and-conventions.html"><a href="software-information-and-conventions.html"><i class="fa fa-check"></i>Software information and conventions</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="real-introduction.html"><a href="real-introduction.html"><i class="fa fa-check"></i><b>1</b> Real Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html"><i class="fa fa-check"></i><b>1.1</b> Tại sao cần hàm f?</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html#dự-báo"><i class="fa fa-check"></i><b>1.1.1</b> Dự báo</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html#suy-diễn"><i class="fa fa-check"></i><b>1.1.2</b> Suy diễn</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="cách-ước-lượng-hàm-f.html"><a href="cách-ước-lượng-hàm-f.html"><i class="fa fa-check"></i><b>1.2</b> Cách ước lượng hàm f</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="cách-ước-lượng-hàm-f.html"><a href="cách-ước-lượng-hàm-f.html#ước-lượng-tham-số-parametric-methods"><i class="fa fa-check"></i><b>1.2.1</b> Ước lượng tham số (parametric methods)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="uớc-lượng-phi-tham-số-non---parametric-methods.html"><a href="uớc-lượng-phi-tham-số-non---parametric-methods.html"><i class="fa fa-check"></i><b>1.3</b> Uớc lượng phi tham số (Non - parametric methods)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="uớc-lượng-phi-tham-số-non---parametric-methods.html"><a href="uớc-lượng-phi-tham-số-non---parametric-methods.html#đánh-đổi-giữa-khả-năng-dự-báo-chính-xác-prediction-accuracy-và-khả-năng-diễn-giải-mô-hình-model-interpretability"><i class="fa fa-check"></i><b>1.3.1</b> Đánh đổi giữa khả năng dự báo chính xác (prediction accuracy) và khả năng diễn giải mô hình (model interpretability)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="customization.html"><a href="customization.html"><i class="fa fa-check"></i><b>2</b> Customization</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="yaml-options.html"><a href="yaml-options.html"><i class="fa fa-check"></i><b>2.1</b> YAML options</a></li>
+<li class="chapter" data-level="2.2" data-path="theming.html"><a href="theming.html"><i class="fa fa-check"></i><b>2.2</b> Theming</a></li>
+<li class="chapter" data-level="2.3" data-path="templates.html"><a href="templates.html"><i class="fa fa-check"></i><b>2.3</b> Templates</a></li>
+<li class="chapter" data-level="2.4" data-path="configuration.html"><a href="configuration.html"><i class="fa fa-check"></i><b>2.4</b> Configuration</a></li>
+<li class="chapter" data-level="2.5" data-path="internationalization.html"><a href="internationalization.html"><i class="fa fa-check"></i><b>2.5</b> Internationalization</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bookdown: Authoring Books and Technical Documents with R Markdown</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cách-ước-lượng-hàm-f" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Cách ước lượng hàm f<a href="cách-ước-lượng-hàm-f.html#cách-ước-lượng-hàm-f" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Trong quyển sách này, chúng ta sẽ được học những phương pháp tuyến tính và phi tuyến tính để ước lượng hàm f. Tuy các phương pháp này khác nhau, nhưng chúng đều có một vài điểm chung nhất định, và tôi sẽ trình bày các điểm chung đó trong phần này. Trước tiên, giả sử chúng ta có một bộ số liệu gồm n quan sát khác nhau. Các quan sát này được gọi là dữ liệu huấn luyện (training data) bởi vì chúng ta sẽ sử dụng những dữ liệu này cùng với các phương pháp thống kê để ước lượng hàm f. 
+Để thuận tiện, ta có thể coi <span class="math inline">\(x_{ij}\)</span> là giá trị biến độc lập thứ j của quan sát thứ i, với <span class="math inline">\(i = 1,2,...,n\)</span> và <span class="math inline">\(j = 1,2,...,p\)</span>. Tương tự, ta cũng coi <span class="math inline">\(y_i\)</span> là biến phụ thuộc của quan sát thứ i. Vậy nên, dữ liệu huấn luyện sẽ bao gồm <span class="math inline">\({(x_1, y_1), (x_2, y_2), ... ,(x_n, y_n)}\)</span> với <span class="math inline">\(x = (x_{i1}, x_{i2}, ... , x_{ip})^T\)</span>.</p>
+<p>Mục tiêu cao nhất của húng ta là sử dụng các phương pháp thống kê với dữ liệu đào tạo để ước lượng hàm f, hay nói cách khác là tìm một hàm <span class="math inline">\(\hat{f}\)</span> sao cho <span class="math inline">\(Y \approx \hat{f}(X)\)</span> với mọi quan sát (X,Y). Các phương pháp ước lượng với dữ liệu này, nói một cách tổng quát hơn, có thể chia ra làm hai loại là các <strong>phương pháp sử dụng tham số (parametric methods)</strong> và các <strong>phương pháp không sử dụng tham số (non-parametric methods).</strong></p>
+<div id="ước-lượng-tham-số-parametric-methods" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Ước lượng tham số (parametric methods)<a href="cách-ước-lượng-hàm-f.html#ước-lượng-tham-số-parametric-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Phương pháp ước lượng tham số có thể được chia ra làm hai bước chính:</p>
+<ol style="list-style-type: decimal">
+<li>Trước tiên, chúng ta phải đưa ra một giả thiết về dạng của hàm f. Ví dụ như hàm f là hàm tuyến tính, hoặc là hàm nghịch đảo, ở đây tác giả sẽ lấy ví dụ hàm f là hàm tuyến tính của X có dạng:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p
+\end{align}\]</span></p>
+<p>Một khi chúng ta giả định rằng hàm f là hàm tuyến tính, thì vấn đề ước lượng hàm f lại đơn giản hơn rất nhiều. Đó là thay vì chúng ta phải ước lượng một hàm f(X) bất kỳ có p chiều, vốn sẽ làm chậm tốc độ tính toán của máy tính đi rất nhiều, thì chúng ta chỉ cần phải ước lượng p+1 tham số <span class="math inline">\(\beta_0, \beta_1, \beta_2, ... , \beta_p\)</span>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Sau khi chúng ta lựa chọn được kiểu hàm mà chúng ta muốn, chúng ta sẽ cần thực hiện thêm các quy trình kỹ thuật thống kê khác nhau với dữ liệu đào tạo để cho ra mô hình phù hợp với dữ liệu nhất.</li>
+</ol>
+<p>Hàm bên trên là hàm tuyến tính, một loại hàm vô cùng phổ biến và cơ bản mà hầu hết người xây dựng mô hình phải biết khi xây dựng hàm f. Người ta hướng đến việc tham số <span class="math inline">\(\beta_0, \beta_1, \beta_2, ... , \beta_p\)</span> rất hiệu quả với mục tiêu là tìm ra các tham số sao cho:</p>
+<p><span class="math display">\[\begin{align}
+Y \approx \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p
+\end{align}\]</span></p>
+<p>Một khi chúng ta giả thiết rằng hàm f là hàm tuyến tính, việc ước lượng các tham số của hàm f khá là đơn giản và các nhà nghiên cứu đã chỉ ra rất nhiều phương pháp để ước lượng, chúng ta sẽ tìm hiểu kỹ hơn về cách ước lượng các tham số <span class="math inline">\(\beta\)</span> trong phần sau.</p>
+<p>Những phương pháp dựa vào việc giả thiệt mô hình trước khi thực hiện tính toán như vừa mô tả thường được gọi là phương pháp ước lượng có tham số. Phương pháp này giúp làm giảm độ phức tạp của bài toán bởi vì việc ước lượng một bộ tham số <span class="math inline">\(\beta_0, \beta_1, \beta_2, ... , \beta_p\)</span> nhất định thường dễ dàng hơn là ước lượng một hàm f bất kỳ cho phù hợp với dữ liệu. Tuy nhiên, phương pháp ước lượng có tham số này vẫn có điểm hạn chế, đó là khi hàm số chúng ta giả thiết thường không trùng với hàm f thực tế (không bao giờ biết được hàm f thực tế là gì), được thể hiện qua các giá trị sai số lớn khi chúng ta thử mô hình giả thiệt trên các tập dữ liệu. Để hạn chế những sai số lớn này, người ta sẽ sử dụng những mô hình với ít điều kiện hơn là hàm tuyến tính (hàm tuyến tính là hàm yêu cầu nhiều giả thiết khá khó đạt được trong thực tế), từ đó có thể giảm thiểu sai lệch trong những ước lượng của mình. Những mô hình với ít điều kiện hơn thông thường sẽ phù hợp với nhiều dạng hàm f thực tế hơn. Tuy nhiên, nếu như chúng ta sử dụng những mô hình phức tạp, thường thì chúng ta sẽ phải mất nhiều thời gian và tài nguyên để ước lượng ra các tham số. Ngoài ra, ta cũng có thể gặp phải trường hợp quá khớp (overfitting), có nghĩa là mô hình cho ra sai số rất nhỏ trên tập dữ liệu đào tạo bởi vì mô hình đã tự điều chỉnh tham số sao cho khớp với cả nhiễu trong dữ liệu đào tạo, nhưng chúng lại cho ra sai số rất lớn trên tập dữ liệu kiểm thử, hoặc khi ứng dụng ngoài thực tế.</p>
+<p><strong>Ở đây tiếp tục xem xét lấy ví dụ thực tế, đưa hình minh hoạ trường hợp underfitting và overfitting vào để sinh viên hiểu (dùng hình tikz thì xuất png đưa vào)</strong></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tại-sao-cần-hàm-f.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="uớc-lượng-phi-tham-số-non---parametric-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub", "bookdown-demo.mobi"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

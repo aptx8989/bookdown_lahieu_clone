@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.1 Tại sao cần hàm f? | bookdown: Authoring Books and Technical Documents with R Markdown</title>
+  <meta name="description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="generator" content="bookdown 0.35.1 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.1 Tại sao cần hàm f? | bookdown: Authoring Books and Technical Documents with R Markdown" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bookdown.org/yihui/bookdown//images/cover.jpg" />
+  <meta property="og:description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="github-repo" content="rstudio/bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.1 Tại sao cần hàm f? | bookdown: Authoring Books and Technical Documents with R Markdown" />
+  
+  <meta name="twitter:description" content="A guide to authoring books with R Markdown, including how to generate figures and tables, and insert cross-references, citations, HTML widgets, and Shiny apps in R Markdown. The book can be exported to HTML, PDF, and e-books (e.g. EPUB). The book style is customizable. You can easily write and preview the book in RStudio IDE or other editors, and host the book wherever you want (e.g. bookdown.org)." />
+  <meta name="twitter:image" content="https://bookdown.org/yihui/bookdown//images/cover.jpg" />
+
+<meta name="author" content="Yihui Xie" />
+
+
+<meta name="date" content="2023-09-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="real-introduction.html"/>
+<link rel="next" href="cách-ước-lượng-hàm-f.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Authoring Books with R Markdown</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="why-read-this-book.html"><a href="why-read-this-book.html"><i class="fa fa-check"></i>Why read this book</a></li>
+<li class="chapter" data-level="" data-path="structure-of-the-book.html"><a href="structure-of-the-book.html"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="software-information-and-conventions.html"><a href="software-information-and-conventions.html"><i class="fa fa-check"></i>Software information and conventions</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="real-introduction.html"><a href="real-introduction.html"><i class="fa fa-check"></i><b>1</b> Real Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html"><i class="fa fa-check"></i><b>1.1</b> Tại sao cần hàm f?</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html#dự-báo"><i class="fa fa-check"></i><b>1.1.1</b> Dự báo</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tại-sao-cần-hàm-f.html"><a href="tại-sao-cần-hàm-f.html#suy-diễn"><i class="fa fa-check"></i><b>1.1.2</b> Suy diễn</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="cách-ước-lượng-hàm-f.html"><a href="cách-ước-lượng-hàm-f.html"><i class="fa fa-check"></i><b>1.2</b> Cách ước lượng hàm f</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="cách-ước-lượng-hàm-f.html"><a href="cách-ước-lượng-hàm-f.html#ước-lượng-tham-số-parametric-methods"><i class="fa fa-check"></i><b>1.2.1</b> Ước lượng tham số (parametric methods)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="uớc-lượng-phi-tham-số-non---parametric-methods.html"><a href="uớc-lượng-phi-tham-số-non---parametric-methods.html"><i class="fa fa-check"></i><b>1.3</b> Uớc lượng phi tham số (Non - parametric methods)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="uớc-lượng-phi-tham-số-non---parametric-methods.html"><a href="uớc-lượng-phi-tham-số-non---parametric-methods.html#đánh-đổi-giữa-khả-năng-dự-báo-chính-xác-prediction-accuracy-và-khả-năng-diễn-giải-mô-hình-model-interpretability"><i class="fa fa-check"></i><b>1.3.1</b> Đánh đổi giữa khả năng dự báo chính xác (prediction accuracy) và khả năng diễn giải mô hình (model interpretability)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="customization.html"><a href="customization.html"><i class="fa fa-check"></i><b>2</b> Customization</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="yaml-options.html"><a href="yaml-options.html"><i class="fa fa-check"></i><b>2.1</b> YAML options</a></li>
+<li class="chapter" data-level="2.2" data-path="theming.html"><a href="theming.html"><i class="fa fa-check"></i><b>2.2</b> Theming</a></li>
+<li class="chapter" data-level="2.3" data-path="templates.html"><a href="templates.html"><i class="fa fa-check"></i><b>2.3</b> Templates</a></li>
+<li class="chapter" data-level="2.4" data-path="configuration.html"><a href="configuration.html"><i class="fa fa-check"></i><b>2.4</b> Configuration</a></li>
+<li class="chapter" data-level="2.5" data-path="internationalization.html"><a href="internationalization.html"><i class="fa fa-check"></i><b>2.5</b> Internationalization</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bookdown: Authoring Books and Technical Documents with R Markdown</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tại-sao-cần-hàm-f" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Tại sao cần hàm f?<a href="tại-sao-cần-hàm-f.html#tại-sao-cần-hàm-f" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Có hai lý do chính để chúng ta tìm ra hàm f, đó là phục vụ cho mục đích dự báo hoặc suy diễn thống kê. Trước tiên, chúng ta sẽ đi sâu vào mục đích thứ nhất, dự báo.</p>
+<div id="dự-báo" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Dự báo<a href="tại-sao-cần-hàm-f.html#dự-báo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Trong thực tế, có rất nhiều trường hợp, chúng ta có đầy đủ thông tin về biến độc lập X, nhưng chúng ta lại rất khó có đầy đủ thông tin về biến phụ thuộc Y. Trong hệ thống mô hình dự báo của chúng ta, dựa trên việc biến sai số <span class="math inline">\(\epsilon\)</span> có giá trị trung bình bằng 0, chúng ta có thể dự đoán Y bằng công thức:</p>
+<p><span class="math display">\[\begin{align}
+\hat{Y} = \hat{f}(X)
+\end{align}\]</span></p>
+<p>trong đó <span class="math inline">\(\hat{f}\)</span> là ước lượng của hàm f, và <span class="math inline">\(\hat{Y}\)</span> thể hiện kết quả dự báo cho Y. Trong hệ thống này, <span class="math inline">\(\hat{f}\)</span> thường là dạng hộp đen (black box), có nghĩa là chúng ta thường không quan tâm đến việc hàm <span class="math inline">\(\hat{f}\)</span> có dạng chính xác như thế nào, mà chỉ quan tâm đến độ chính xác của hàm <span class="math inline">\(\hat{f}\)</span> khi dự đoán giá trị của Y.</p>
+<p>Một ví dụ cho việc sử dụng hàm f với biến dự báo là biến định lượng có thể được trình bày như sau. Giả dụ chúng ta đang có các dữ liệu về thông tin cá nhân của một khách hàng mua bảo hiểm của công ty bảo hiểm (thể hiện bằng các biến <span class="math inline">\(X_1, X_2, ... X_p\)</span>), Y là số tiền mô hình dự đoán công ty bảo hiểm sẽ phải chi trả cho khách hàng đó trong tương lai. Việc dự đoán Y bằng việc sử dụng X là khá hợp lý, khi chúng ta có thể dự đoán số tiền bảo hiểm mà một khách hàng sẽ đòi công ty bảo hiểm trong tương lai bằng chính những thông tin cá nhân của người đó, giúp cho công ty bảo hiểm nắm được thông tin để chuẩn bị đủ tiền trả cho các khách hàng.</p>
+<p>Độ chính xác của <span class="math inline">\(\hat{Y}\)</span> trong việc dự báo Y dựa vào hai yếu tố: Đó là sai số có thể giảm (reducible error) và sai số không thể giảm (irreducible error). Cần phải hiểu rằng <span class="math inline">\(\hat{f}\)</span> không dự đoán một cách chính xác hoàn toàn giá trị của f, mà chúng luôn luôn tồn tại sai số trong đó.</p>
+<p>Sai số này có thể giảm thiểu được, bởi vì chúng ta có thể tăng sự chính xác của mô hình <span class="math inline">\(\hat{f}\)</span> bằng cách sử dụng những mô hình thống kê tiên tiến, phù hợp với dữ liệu để ước lượng hàm f. Tuy nhiên, nếu chúng ta có thể dự đoán đúng giá trị chính xác của f, nghĩa là ước lượng của chúng ta sẽ có dạng <span class="math inline">\(\hat{Y} = f(X)\)</span>, thì chúng ta vẫn có một vài sai số trong đó. Bởi vì Y là hàm có chứa <span class="math inline">\(\epsilon\)</span>, mà theo định nghĩa, ta không thể dự đoán <span class="math inline">\(\epsilon\)</span> theo X. Vậy nên, sự biến động liên quan tới <span class="math inline">\(\epsilon\)</span> cũng vẫn gây ảnh hưởng đến độ chính xác của dự báo. <span class="math inline">\(\epsilon\)</span> được biết đến như là sai số không thể giảm, bởi vì dù cho chúng ta có ước lượng hàm f tốt đến mức nào, ta vẫn không thể giảm sai số được thể hiện bởi <span class="math inline">\(\epsilon\)</span>.</p>
+<p>Vậy tại sao sai số không thể giảm lại lớn hơn 0? Giá trị <span class="math inline">\(\epsilon\)</span> có thể chứa những thông tin chưa được thu thập, nhưng có giá trị trong việc dự đoán Y. Bởi vì chúng ta không có số liệu của những biến <span class="math inline">\(X_{p+1}, X_{p+2},...\)</span> đó, hàm f không thể sử dụng chúng trong việc dự đoán Y. Trong trường hợp khác, ta không thể giảm <span class="math inline">\(\epsilon\)</span> bởi vì thực sự chúng có chứa những biến động không thể đo lường được. Ví dụ như khi ta xây mô hình để dự đoán rủi ro khi sử dụng một loại thuốc lên người bệnh nhân, thì rủi ro đó có thể thay đổi tuỳ vào chất lượng sản xuất của viên thuốc đó, hoặc đơn giản là thể trạng bệnh nhân vào ngày hôm đó, thường đó là những rủi ro mà ta gần như không thể xác định trước được.</p>
+<p>Cho một hàm ước lượng <span class="math inline">\(\hat{f}\)</span> và một bộ các biến dự báo (predictors), mà từ đó ta sẽ có được những giá trị dự báo <span class="math inline">\(\hat{Y} = \hat{f}(X)\)</span>. Giả sử rằng <span class="math inline">\(\hat{f}\)</span> và X đều giữ nguyên, và sai số chỉ đến từ <span class="math inline">\(\epsilon\)</span>, ta có công thức:</p>
+<p><span class="math display">\[\begin{align}
+E(Y-\hat{y})^2 &amp;= E[f(X) + \epsilon - \hat{f}(X)]^2 \\
+&amp;= \underbrace{[f(X) - \hat{f}(X)]^2}_{Sai \ số \ có \ thể \ giảm} +\underbrace{Var(\epsilon)}_{Sai \ số \ không \ thể \ giảm}
+\end{align}\]</span></p>
+<p>trong đó E(Y-<span class="math inline">\(\hat{y}\)</span>)^2 thể hiện giá trị trung bình, hoặc giá trị kỳ vọng của giá trị bình phương của chênh lệch giữa giá trị dự đoán và giá trị thực tế. <span class="math inline">\(Var(\epsilon)\)</span> thể hiện phương sai của <span class="math inline">\(\epsilon\)</span>.</p>
+<p>Quyển sách này sẽ tập trung vào các kỹ thuật thống kê giúp ước lượng hàm f với mục tiêu là giảm tối đa sai số có thể giảm. Tuy nhiên, chúng ta luôn cần chú ý rằng sai số không thể giảm sẽ vẫn luôn luôn tạo ra một giới hạn trên cho sự chính xác của dự báo. Và giới hạn trên này luôn luôn là một ẩn số trong thực tế.</p>
+</div>
+<div id="suy-diễn" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Suy diễn<a href="tại-sao-cần-hàm-f.html#suy-diễn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ngoài mục đích xây dựng hàm f để dự đoán các giá trị của Y. Người ta còn muốn hiểu hơn về mối liên hệ giữa Y và <span class="math inline">\(X_1, X_2, X_3,...,X_p\)</span>. Trong trường hợp này, chúng ta vẫn sẽ phải ước lượng hàm f, tuy nhiên mục tiêu của chúng ta không phải là dự báo giá trị của Y. Bây giờ, hàm <span class="math inline">\(\hat{f}\)</span> không thể được coi là hộp đen (black box) nữa, mà chúng ta cần phải biết chính xác dạng của hàm <span class="math inline">\(\hat{f}\)</span> đó là gì. Khi thực hiện các phương pháp thống kê suy diễn, chúng ta thường tập trung vào trả lời các câu hỏi như sau:</p>
+<ul>
+<li><em>Biến độc lập (predictor) nào có mối quan hệ với biến phụ thuộc?</em> Câu hỏi này thường được đặt ra trong trường hợp dữ liệu của chúng ta chỉ có một lượng nhỏ biến độc lập X có liên quan đến biến Y. Việc tìm ra một số lượng nhỏ các biến độc lập X liên hệ với biến Y giữa một số lượng biến độc lập X lớn hơn có rất nhiều tác dụng trong thực tế. Ví dụ như trong bài toán tính toán khả năng bị sốc phản vệ của bệnh nhân khi dùng thuốc, khi đó biến Y thể hiện khả năng bệnh nhân đó bị sốc phản vệ, các biến X chứa thông tin cá nhân của bệnh nhân như tuổi, cân nặng, tiền sử bệnh; trong trường hợp này nếu như chúng ta tìm ra được yếu tố (ở đây được thể hiện bởi biến X) nào có ảnh hưởng nhiều đến biến Y thì có thể các bác sĩ sẽ tập trung tìm ra cách cải thiện những yếu tố đó, giúp cho bệnh nhân giảm khả năng bị sốc phản vệ.</li>
+<li><em>Mối liên hệ giữa biến phụ thuộc và các biến độc lập là gì?</em> Trong thực tế, một vài biến độc lập X sẽ có mối quan hệ đồng biến với biến Y, có nghĩa là nếu giá trị các biến độc lập đó càng lớn, thì giá trị của Y sẽ càng lớn. Một vài biến độc lập khác cũng có thể có mối quan hệ nghịch biến với Y. Phụ thuộc vào sự phức tạp của hàm f và của dữ liệu, mối liên hệ giữa biến phụ thuộc Y và một biến độc lập bất kỳ có thể cũng phụ thuộc vào giá trị của các biến độc lập khác.</li>
+<li><em>Liệu mối quan hệ giữa biến phụ thuộc Y và các biến độc lập có thể được biểu diễn dưới dạng tuyến tính, hay là còn ở các dạng khác phức tạp hơn?</em> Xuyên suốt lịch sử của các mô hình thống kê, hầu hết các phương pháp ước lượng hàm <span class="math inline">\(f\)</span> đều có dạng tuyến tính, đi kèm với đó là những giả thuyết nhất định về dữ liệu, mà đôi khi chúng rất phù hợp với thực tế dữ liệu. Tuy nhiên trong một vài trường hợp, những giả thuyết của mô hình dạng tuyến tính lại không còn phù hợp nữa, vì dữ liệu thực tế không tuân theo những giả thuyết đó mà nó lại phức tạp hơn. Khi ấy, mô hình tuyến tính có thể sẽ đưa ra những kết quả không chính xác về mối liên hệ giữa biến độc lập và biến phụ thuộc. Một vài mô hình khác với mô hình tuyến tính mà ta có thể tham khảo như: Mô hình logit, mô hình probit, mô hình hồi quy nghịch đảo, mô hình hồi quy mũ…</li>
+</ul>
+<p><strong>Cân nhắc cho thêm ví dụ về ứng dụng thực tế của các mô hình cho học sinh hiểu</strong></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="real-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cách-ước-lượng-hàm-f.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown/edit/main/inst/examples/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub", "bookdown-demo.mobi"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

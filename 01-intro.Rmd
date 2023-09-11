@@ -1,0 +1,127 @@
+# Real Introduction
+
+```{r}
+library(dplyr)
+library(kableExtra)
+```
+
+Để bắt đầu với Khoa học dữ liệu, chúng ta sẽ đi từ một vài ví dụ đơn giản nhất. Đặt trong trường hợp chúng ta là người phân tích khoa học dữ liệu tại một bệnh viện, một bài toán đơn giản thường được đặt ra là dự đoán khả năng một người bất kỳ nào đó bị bệnh dựa trên các thông tin mà ta biết về người đó. Ví dụ, để tính xác suất của một người bị bệnh tim lần 2, sau có thông tin là người đó đã bị bệnh tim lần 1, dựa vào các thông tin khác như chủng tộc, giới tính, tuổi, tiền sử bệnh lý, lối sống của bệnh nhân đó.
+
+Quyển sách này sẽ dạy bạn cách để học từ dữ liệu. Thông thường, chúng ta sẽ có một thước đo kết quả (hay còn gọi là các biến phụ thuộc), thường là theo biến định lượng (ví dụ như giá cổ phiếu, doanh thu của công ty), hoặc biến định tính (ví dụ như có hay không chuyện người đó bị bệnh tim), và chúng ta sẽ dự đoán nó từ các đặc trưng (hay còn gọi là các biến độc lập). 
+
+Để xây dựng được những mô hình tốt, nghĩa là mô hình có thể đưa ra dự đoán với độ chính xác cao, chúng ta cần phải sử dụng dữ liệu sao cho thật hợp lý. Thử tưởng tượng, mục đích của dự đoán là dự báo những điều chưa được biết. nếu như bạn xây dựng một hàm f để dự đoán kết quả trên toàn bộ dữ liệu bạn có, thì làm sao bạn có thể biết được hàm f đó có hoạt động tốt trên thực tế để chọn ra hàm f phù hợp nhất? Khi hàm f được xây dựng trên toàn bộ tập dữ liệu, các tham số của hàm đó sẽ được tính toán để phù hợp với dữ liệu đó nhất, nhưng có khả năng chúng sẽ lại không phù hợp với các dữ liệu được đưa vào từ bên ngoài. 
+
+Vậy nên, trong thực tế, chúng ta thường chia dữ liệu ra làm hai hoặc ba phần tuỳ thuộc vào lượng dữ liệu và các đặc tính về dữ liệu đó. Thông thường, nếu dữ liệu đủ lớn, ta sẽ chia dữ liệu ra làm ba thành phần chính: dữ liệu học (train data), dữ liệu đánh giá (validation data) và dữ liệu kiểm thử (test data).Các hàm f sẽ được huấn luyện trên dữ liệu học, sau đó các hàm f khác nhau sẽ được đưa vào dữ liệu đánh giá để thử dự đoán, và hàm f có những dự đoán chính xác nhất trên dữ liệu đánh giá sẽ được chọn để đưa vào dữ liệu kiểm thử. Nếu hàm f dự đoán trên dữ liệu kiểm thử đạt yêu cầu, nghĩa là vượt qua một tiêu chuẩn nhất định. Tiêu chuẩn nhất định cũng sẽ thường phụ thuộc vào bài toán mà hàm f đó được xây dựng để xử lý. Đối với kết quả dự báo là kết quả định lượng, người ta thường đặt tiêu chuẩn là như sai số dự báo nhỏ hơn k cho trước. Còn đối với kết quả dự báo là kết quả định tính, người ta thường đặt tiêu chuẩn là tỉ lệ dự đoán đúng cao hơn một số k cho trước.
+
+Trong phương pháp học thống kê, ta thường xây dựng một hàm f dựa trên dữ liệu gồm có nhiều biến khác nhau. Thông thường, biến đầu ra (output) còn được gọi là biến phụ thuộc (dependent variable), thường được ký hiệu là X. Tương tự, biến đầu vào là các biến được sử dụng để dự đoán biến phụ thuộc, loại biến này còn được gọi là biến dự đoán, hay biến độc lập, thường được ký hiệu là Y. 
+
+Một định nghĩa nữa mà ta cần phải biết đó là định nghĩa về các loại biến khác nhau. Trong quyển sách này, chúng ta sẽ nhắc tới hai loại biến cơ bản nhất là Biến định lượng và biến định tính.
+Biến định lượng là loại biến mà ta có thể so sánh các giá trị của biến đó với nhau, và nếu hai giá trị định lượng gần nhau, thì thường chúng cũng sẽ gần nhau trong thực tế. Lấy ví dụ về biến định lượng, ta có thể kể đến chỉ số đường trong máu của một người. Nếu như hai người có chỉ số glucose trong máu chỉ chênh nhau 0.1 mg/dl, thì có nghĩa là mức độ đường trong máu của họ thực tế sẽ giống nhau hơn là hai người có chỉ số glucose trong máu chênh nhau 10 mg/dl. Hoặc đơn giản như là một nhân viên A  Nói chung là sự khác biệt giữa các giá trị của hai biến định lượng với nhau ta hoàn toàn có thể quan sát được. Biến định lượng cũng sẽ có thể có hai dạng, đó là biến liên tục (continuous) với giá trị quan sát thuộc tập số thực (ví dụ như tốc độ của các xe ô tô trên đường cao tốc), và biến rời rạc (discrete) với các giá trị quan sát thuộc tập số nguyên (ví dụ như tổng số sản phẩm mà một khách hàng mua của công ty).
+
+Việc xác định đúng loại biến là rất quan trọng, phục vụ chính xác . Trong thực tế, ta có thể sẽ có trường hợp như sau. Một công ty đưa ra một khảo sát cho khách hàng, khảo sát đó có câu hỏi về đánh giá mức độ hài lòng với chất lượng dịch vụ của công ty với các lựa chọn như sau: “Rất Kém”, “Kém”, “Bình thường”, “Tốt”, “Rất tốt” hoặc đơn thuần là các lựa chọn từ 1 đến 5. Tuy nhiên, trong khảo sát đó, khách hàng cũng có câu hỏi về loại thức ăn mà họ yêu thích, với các lựa chọn là “Cơm”, “Bánh mì”, “Mỳ Ý”. Đối với câu trả lời cho hai câu hỏi trên của khách hàng, thì câu trả lời nào là biến định tính, câu trả lời nào là biến định lượng? **(Đoạn này phải visualize bằng table cho dễ hiểu, lấy ví dụ cho các câu trả lời luôn)**
+
+Đáp án là không có câu trả lời nào là biến định lượng, toàn bộ các câu trả lời đều là biến định tính. Tại sao lại như vậy? Trong trường hợp hỏi về “loại thức ăn yêu thích”, các câu trả lời không thể so sánh được với nhau, ta không thể nói rằng khách hàng thích ăn “Cơm” là tốt hơn, hay kém hơn so với khách hàng ăn “Mỳ Ý” hay “Bánh mì”. Nên đương nhiên đáp án ở câu hỏi này là biến định tính. Còn đối với câu hỏi thứ hai, tưởng như ta có thể so sánh các lựa chọn của khách hàng với nhau, nhưng sự thực là ta không thể dựa vào các đánh giá trên để kết luận rằng khách hàng này thích dịch vụ của công ty hơn bao nhiêu lần so với khách hàng kia. Lấy ví dụ đơn giản, khách hàng A có câu trả lời là 3, khách hàng B có câu trả lời là 2, khách hàng C có câu trả lời là 5, ta không thể nói rằng khách hàng A thích dịch vụ của công ty hơn gấp rưỡi so với khách hàng B, hay khách hàng B thích dịch vụ của công ty bằng 2,5 lần khách hàng C. Điều đó là không hợp lý, ta chỉ có thể nói rằng khách hàng A thích dịch vụ của công ty hơn khách hàng B, hay khách hàng B không thích dịch vụ của công ty bằng khách hàng C.
+
+Vậy thì có cách nào để ta xác định những trường hợp như vậy là biến định tính, hay biến định lượng? Đối với biến định tính, ta có phải đặt ra tiêu chuẩn phân loại gì không? Ta thường chia ra làm hai loại là biến định lượng có thứ tự (ordinal variable) và biến định lượng không có thứ tự (nominal variable). Biến định lượng có thứ tự là loại biến mà có sự sắp xếp thứ bậc giữa các giá trị trong biến, nhưng không có một thước đo nào phù hợp. Biến định tính không có thứ tự là loại biến có các giá trị mà không có thước đo nào phù hợp giữa chúng, đồng thời cũng không có thước đo nào phù hợp, tương tự như trường hợp “Cơm”, “Bánh mì”, “Mỳ Ý” ở trên.
+
+Đối với biến định tính, thường ta có thể chuyển các giá trị của biến định tính sang thành dạng số. Có hai phương pháp cơ bản để làm điều này đó gọi là one-hot encoding và dummy variables. **(Cái này cũng cần hình vẽ để minh hoạ)**
+
+* One-hot encoding là phương pháp đưa một biến định tính gồm có N giá trị phân loại thành N biến nhị phân (chỉ nhận giá trị 0 hoặc 1) khác nhau.
+* Dummy variable có cách gán giá trị đơn giản hơn, khi chúng đưa một biến định tính gồm có N giá trị phân loại thành N-1 biến nhị phân khác nhau.
+* Trong trường hợp biến định tính chỉ có hai giá trị duy nhất, chúng ta gọi giá trị đó là biến nhị phân (binary). Các ví dụ cho trường hợp biến nhị phân có thể kể tới như: “Có đi xe đạp” – “Không đi xe đạp”, “Đang đi học” – “Đang không đi học”…. Những trường hợp này ta có thể gán giá trị số 0,1 lần lượt cho hai trường hợp.
+
+Trong phần tiếp theo, ta sẽ đi sâu hơn một chút về lý thuyết xây dựng mô hình hồi quy. Để dễ tưởng tượng hơn, ta sẽ bắt đầu với bài toán mà biến dự đoán là biến định lượng. Cho biến Y là biến phụ thuộc, và có các biến độc lập $X_1,X_2,X_3,…,X_p$.  Chúng ta giả sử là có sự liên hệ giữa biến Y và biến $X = (X_1,X_2,X_3,…,X_p)$, ta có thể viết chúng dưới dạng tổng quát:
+
+\begin{align}
+Y = f(X) + \epsilon
+\end{align}
+
+Trong đó, f là một hàm cố định, nhưng chưa xác định của $X_1,X_2,X_3,…,X_p$, và bên cạnh đó $\epsilon$ là random error term, độc lập với X và có giá trị kỳ vọng bằng 0. Trong công thức trên, f thể hiện systematic information mà X cung cấp về Y. **(Xem xét đưa thêm ví dụ vào sau phần này).**
+
+## Tại sao cần hàm f?
+
+Có hai lý do chính để chúng ta tìm ra hàm f, đó là phục vụ cho mục đích dự báo hoặc suy diễn thống kê. Trước tiên, chúng ta sẽ đi sâu vào mục đích thứ nhất, dự báo. 
+
+### Dự báo
+
+Trong thực tế, có rất nhiều trường hợp, chúng ta có đầy đủ thông tin về biến độc lập X, nhưng chúng ta lại rất khó có đầy đủ thông tin về biến phụ thuộc Y. Trong hệ thống mô hình dự báo của chúng ta, dựa trên việc biến sai số $\epsilon$ có giá trị trung bình bằng 0, chúng ta có thể dự đoán Y bằng công thức:
+
+\begin{align}
+\hat{Y} = \hat{f}(X)
+\end{align}
+
+trong đó $\hat{f}$ là ước lượng của hàm f, và $\hat{Y}$ thể hiện kết quả dự báo cho Y. Trong hệ thống này, $\hat{f}$ thường là dạng hộp đen (black box), có nghĩa là chúng ta thường không quan tâm đến việc hàm $\hat{f}$ có dạng chính xác như thế nào, mà chỉ quan tâm đến độ chính xác của hàm $\hat{f}$ khi dự đoán giá trị của Y.
+
+Một ví dụ cho việc sử dụng hàm f với biến dự báo là biến định lượng có thể được trình bày như sau. Giả dụ chúng ta đang có các dữ liệu về thông tin cá nhân của một khách hàng mua bảo hiểm của công ty bảo hiểm (thể hiện bằng các biến $X_1, X_2, ... X_p$), Y là số tiền mô hình dự đoán công ty bảo hiểm sẽ phải chi trả cho khách hàng đó trong tương lai. Việc dự đoán Y bằng việc sử dụng X là khá hợp lý, khi chúng ta có thể dự đoán số tiền bảo hiểm mà một khách hàng sẽ đòi công ty bảo hiểm trong tương lai bằng chính những thông tin cá nhân của người đó, giúp cho công ty bảo hiểm nắm được thông tin để chuẩn bị đủ tiền trả cho các khách hàng.
+
+Độ chính xác của $\hat{Y}$ trong việc dự báo Y dựa vào hai yếu tố: Đó là sai số có thể giảm (reducible error) và sai số không thể giảm (irreducible error). Cần phải hiểu rằng $\hat{f}$ không dự đoán một cách chính xác hoàn toàn giá trị của f, mà chúng luôn luôn tồn tại sai số trong đó. 
+
+Sai số này có thể giảm thiểu được, bởi vì chúng ta có thể tăng sự chính xác của mô hình $\hat{f}$ bằng cách sử dụng những mô hình thống kê tiên tiến, phù hợp với dữ liệu để ước lượng hàm f. Tuy nhiên, nếu chúng ta có thể dự đoán đúng giá trị chính xác của f, nghĩa là ước lượng của chúng ta sẽ có dạng $\hat{Y} = f(X)$, thì chúng ta vẫn có một vài sai số trong đó. Bởi vì Y là hàm có chứa $\epsilon$, mà theo định nghĩa, ta không thể dự đoán $\epsilon$ theo X. Vậy nên, sự biến động liên quan tới $\epsilon$ cũng vẫn gây ảnh hưởng đến độ chính xác của dự báo. $\epsilon$ được biết đến như là sai số không thể giảm, bởi vì dù cho chúng ta có ước lượng hàm f tốt đến mức nào, ta vẫn không thể giảm sai số được thể hiện bởi $\epsilon$.
+
+Vậy tại sao sai số không thể giảm lại lớn hơn 0? Giá trị $\epsilon$ có thể chứa những thông tin chưa được thu thập, nhưng có giá trị trong việc dự đoán Y. Bởi vì chúng ta không có số liệu của những biến $X_{p+1}, X_{p+2},...$ đó, hàm f không thể sử dụng chúng trong việc dự đoán Y. Trong trường hợp khác, ta không thể giảm $\epsilon$ bởi vì thực sự chúng có chứa những biến động không thể đo lường được. Ví dụ như khi ta xây mô hình để dự đoán rủi ro khi sử dụng một loại thuốc lên người bệnh nhân, thì rủi ro đó có thể thay đổi tuỳ vào chất lượng sản xuất của viên thuốc đó, hoặc đơn giản là thể trạng bệnh nhân vào ngày hôm đó, thường đó là những rủi ro mà ta gần như không thể xác định trước được.
+
+Cho một hàm ước lượng $\hat{f}$ và một bộ các biến dự báo (predictors), mà từ đó ta sẽ có được những giá trị dự báo $\hat{Y} = \hat{f}(X)$. Giả sử rằng $\hat{f}$ và X đều giữ nguyên, và sai số chỉ đến từ $\epsilon$, ta có công thức:
+
+\begin{align}
+E(Y-\hat{y})^2 &= E[f(X) + \epsilon - \hat{f}(X)]^2 \\
+&= \underbrace{[f(X) - \hat{f}(X)]^2}_{Sai \ số \ có \ thể \ giảm} +\underbrace{Var(\epsilon)}_{Sai \ số \ không \ thể \ giảm}
+\end{align}
+
+trong đó E(Y-$\hat{y}$)^2 thể hiện giá trị trung bình, hoặc giá trị kỳ vọng của giá trị bình phương của chênh lệch giữa giá trị dự đoán và giá trị thực tế. $Var(\epsilon)$ thể hiện phương sai của $\epsilon$.
+
+Quyển sách này sẽ tập trung vào các kỹ thuật thống kê giúp ước lượng hàm f với mục tiêu là giảm tối đa sai số có thể giảm. Tuy nhiên, chúng ta luôn cần chú ý rằng sai số không thể giảm sẽ vẫn luôn luôn tạo ra một giới hạn trên cho sự chính xác của dự báo. Và giới hạn trên này luôn luôn là một ẩn số trong thực tế.
+
+### Suy diễn
+
+Ngoài mục đích xây dựng hàm f để dự đoán các giá trị của Y. Người ta còn muốn hiểu hơn về mối liên hệ giữa Y và $X_1, X_2, X_3,...,X_p$. Trong trường hợp này, chúng ta vẫn sẽ phải ước lượng hàm f, tuy nhiên mục tiêu của chúng ta không phải là dự báo giá trị của Y. Bây giờ, hàm $\hat{f}$ không thể được coi là hộp đen (black box) nữa, mà chúng ta cần phải biết chính xác dạng của hàm $\hat{f}$ đó là gì. Khi thực hiện các phương pháp thống kê suy diễn, chúng ta thường tập trung vào trả lời các câu hỏi như sau:
+
+* _Biến độc lập (predictor) nào có mối quan hệ với biến phụ thuộc?_ Câu hỏi này thường được đặt ra trong trường hợp dữ liệu của chúng ta chỉ có một lượng nhỏ biến độc lập X có liên quan đến biến Y. Việc tìm ra một số lượng nhỏ các biến độc lập X liên hệ với biến Y giữa một số lượng biến độc lập X lớn hơn có rất nhiều tác dụng trong thực tế. Ví dụ như trong bài toán tính toán khả năng bị sốc phản vệ của bệnh nhân khi dùng thuốc, khi đó biến Y thể hiện khả năng bệnh nhân đó bị sốc phản vệ, các biến X chứa thông tin cá nhân của bệnh nhân như tuổi, cân nặng, tiền sử bệnh; trong trường hợp này nếu như chúng ta tìm ra được yếu tố (ở đây được thể hiện bởi biến X) nào có ảnh hưởng nhiều đến biến Y thì có thể các bác sĩ sẽ tập trung tìm ra cách cải thiện những yếu tố đó, giúp cho bệnh nhân giảm khả năng bị sốc phản vệ.
+* _Mối liên hệ giữa biến phụ thuộc và các biến độc lập là gì?_ Trong thực tế, một vài biến độc lập X sẽ có mối quan hệ đồng biến với biến Y, có nghĩa là nếu giá trị các biến độc lập đó càng lớn, thì giá trị của Y sẽ càng lớn. Một vài biến độc lập khác cũng có thể có mối quan hệ nghịch biến với Y. Phụ thuộc vào sự phức tạp của hàm f và của dữ liệu, mối liên hệ giữa biến phụ thuộc Y và một biến độc lập bất kỳ có thể cũng phụ thuộc vào giá trị của các biến độc lập khác.
+* _Liệu mối quan hệ giữa biến phụ thuộc Y và các biến độc lập có thể được biểu diễn dưới dạng tuyến tính, hay là còn ở các dạng khác phức tạp hơn?_ Xuyên suốt lịch sử của các mô hình thống kê, hầu hết các phương pháp ước lượng hàm $f$ đều có dạng tuyến tính, đi kèm với đó là những giả thuyết nhất định về dữ liệu, mà đôi khi chúng rất phù hợp với thực tế dữ liệu. Tuy nhiên trong một vài trường hợp, những giả thuyết của mô hình dạng tuyến tính lại không còn phù hợp nữa, vì dữ liệu thực tế không tuân theo những giả thuyết đó mà nó lại phức tạp hơn. Khi ấy, mô hình tuyến tính có thể sẽ đưa ra những kết quả không chính xác về mối liên hệ giữa biến độc lập và biến phụ thuộc. Một vài mô hình khác với mô hình tuyến tính mà ta có thể tham khảo như: Mô hình logit, mô hình probit, mô hình hồi quy nghịch đảo, mô hình hồi quy mũ...
+
+**Cân nhắc cho thêm ví dụ về ứng dụng thực tế của các mô hình cho học sinh hiểu**
+
+## Cách ước lượng hàm f
+
+Trong quyển sách này, chúng ta sẽ được học những phương pháp tuyến tính và phi tuyến tính để ước lượng hàm f. Tuy các phương pháp này khác nhau, nhưng chúng đều có một vài điểm chung nhất định, và tôi sẽ trình bày các điểm chung đó trong phần này. Trước tiên, giả sử chúng ta có một bộ số liệu gồm n quan sát khác nhau. Các quan sát này được gọi là dữ liệu huấn luyện (training data) bởi vì chúng ta sẽ sử dụng những dữ liệu này cùng với các phương pháp thống kê để ước lượng hàm f. 
+Để thuận tiện, ta có thể coi $x_{ij}$ là giá trị biến độc lập thứ j của quan sát thứ i, với $i = 1,2,...,n$ và $j = 1,2,...,p$. Tương tự, ta cũng coi $y_i$ là biến phụ thuộc của quan sát thứ i. Vậy nên, dữ liệu huấn luyện sẽ bao gồm ${(x_1, y_1), (x_2, y_2), ... ,(x_n, y_n)}$ với $x = (x_{i1}, x_{i2}, ... , x_{ip})^T$.
+
+Mục tiêu cao nhất của húng ta là sử dụng các phương pháp thống kê với dữ liệu đào tạo để ước lượng hàm f, hay nói cách khác là tìm một hàm $\hat{f}$ sao cho $Y \approx \hat{f}(X)$ với mọi quan sát (X,Y). Các phương pháp ước lượng với dữ liệu này, nói một cách tổng quát hơn, có thể chia ra làm hai loại là các **phương pháp sử dụng tham số (parametric methods)** và các **phương pháp không sử dụng tham số (non-parametric methods).**
+
+### Ước lượng tham số (parametric methods)
+
+Phương pháp ước lượng tham số có thể được chia ra làm hai bước chính:
+
+1. Trước tiên, chúng ta phải đưa ra một giả thiết về dạng của hàm f. Ví dụ như hàm f là hàm tuyến tính, hoặc là hàm nghịch đảo, ở đây tác giả sẽ lấy ví dụ hàm f là hàm tuyến tính của X có dạng:
+
+\begin{align}
+f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p
+\end{align}
+
+Một khi chúng ta giả định rằng hàm f là hàm tuyến tính, thì vấn đề ước lượng hàm f lại đơn giản hơn rất nhiều. Đó là thay vì chúng ta phải ước lượng một hàm f(X) bất kỳ có p chiều, vốn sẽ làm chậm tốc độ tính toán của máy tính đi rất nhiều, thì chúng ta chỉ cần phải ước lượng p+1 tham số $\beta_0, \beta_1, \beta_2, ... , \beta_p$.
+
+2. Sau khi chúng ta lựa chọn được kiểu hàm mà chúng ta muốn, chúng ta sẽ cần thực hiện thêm các quy trình kỹ thuật thống kê khác nhau với dữ liệu đào tạo để cho ra mô hình phù hợp với dữ liệu nhất.
+
+Hàm bên trên là hàm tuyến tính, một loại hàm vô cùng phổ biến và cơ bản mà hầu hết người xây dựng mô hình phải biết khi xây dựng hàm f. Người ta hướng đến việc tham số $\beta_0, \beta_1, \beta_2, ... , \beta_p$ rất hiệu quả với mục tiêu là tìm ra các tham số sao cho:
+
+\begin{align}
+Y \approx \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p
+\end{align}
+
+Một khi chúng ta giả thiết rằng hàm f là hàm tuyến tính, việc ước lượng các tham số của hàm f khá là đơn giản và các nhà nghiên cứu đã chỉ ra rất nhiều phương pháp để ước lượng, chúng ta sẽ tìm hiểu kỹ hơn về cách ước lượng các tham số $\beta$ trong phần sau.
+
+Những phương pháp dựa vào việc giả thiệt mô hình trước khi thực hiện tính toán như vừa mô tả thường được gọi là phương pháp ước lượng có tham số. Phương pháp này giúp làm giảm độ phức tạp của bài toán bởi vì việc ước lượng một bộ tham số $\beta_0, \beta_1, \beta_2, ... , \beta_p$ nhất định thường dễ dàng hơn là ước lượng một hàm f bất kỳ cho phù hợp với dữ liệu. Tuy nhiên, phương pháp ước lượng có tham số này vẫn có điểm hạn chế, đó là khi hàm số chúng ta giả thiết thường không trùng với hàm f thực tế (không bao giờ biết được hàm f thực tế là gì), được thể hiện qua các giá trị sai số lớn khi chúng ta thử mô hình giả thiệt trên các tập dữ liệu. Để hạn chế những sai số lớn này, người ta sẽ sử dụng những mô hình với ít điều kiện hơn là hàm tuyến tính (hàm tuyến tính là hàm yêu cầu nhiều giả thiết khá khó đạt được trong thực tế), từ đó có thể giảm thiểu sai lệch trong những ước lượng của mình. Những mô hình với ít điều kiện hơn thông thường sẽ phù hợp với nhiều dạng hàm f thực tế hơn. Tuy nhiên, nếu như chúng ta sử dụng những mô hình phức tạp, thường thì chúng ta sẽ phải mất nhiều thời gian và tài nguyên để ước lượng ra các tham số. Ngoài ra, ta cũng có thể gặp phải trường hợp quá khớp (overfitting), có nghĩa là mô hình cho ra sai số rất nhỏ trên tập dữ liệu đào tạo bởi vì mô hình đã tự điều chỉnh tham số sao cho khớp với cả nhiễu trong dữ liệu đào tạo, nhưng chúng lại cho ra sai số rất lớn trên tập dữ liệu kiểm thử, hoặc khi ứng dụng ngoài thực tế.
+
+**Ở đây tiếp tục xem xét lấy ví dụ thực tế, đưa hình minh hoạ trường hợp underfitting và overfitting vào để sinh viên hiểu (dùng hình tikz thì xuất png đưa vào)**
+
+## Uớc lượng phi tham số (Non - parametric methods)
+
+Khác với phương pháp ước lượng tham số, phương pháp ước lượng phi tham số không đưa ra bất kỳ giả thiết nào về dạng hàm của f. Thay vào đó, phương pháp này sẽ đưa ra một giá trị ước lượng của f sao cho giá trị đó càng gần với các giá trị quan sát (hay còn gọi là các điểm dữ liệu) càng tốt, nhưng các giá trị ước lượng đó vẫn được tính toán sao cho chúng không quá khớp (overfitting) hay ít khớp (underfitting). Cách tiếp cận phi tham số này có lợi thế khá lớn ở chỗ chúng có thể khớp các dạng hàm khác nhau của hàm f trong thực tế một cách chính xác hơn so với cách tiếp cận tham số, do chúng không đặt ra trước bất kỳ giả thuyết nào về hàm f, nên có thể tránh việc các tính toán ước lượng của chúng ta bị sai lệch do mô hình không phù hợp. Khi người ta sử dụng phương pháp phi tham số, có nghĩa là họ đã cho rằng dữ liệu của họ (thể hiện một phần hàm f thực tế) có nhiều khả năng sẽ không phù hợp với các mô hình thông thường đã được biết trước (tuyến tính, nghịch đảo, hồi quy mũ). Phương pháp ước lượng phi tham số hoàn toàn tránh được rủi ro ước lượng sai do giả thiết về hàm f không chính xác, tuy nhiên chúng cũng có những hạn chế nhất định khiến người ta phải cân nhắc trước khi áp dụng vào thực tế. Hạn chế đó nằm ở khả năng tính toán, bởi vì các bài toán ước lượng hàm f theo phương pháp phi tham số không được chuyển thành bài toán ước lượng một dãy tham số, có nghĩa là phương pháp này phải sử dụng một lượng quan sát lớn hơn nhiều so với phương pháp tham số để có thể ước lượng hàm f với độ chính xác cao.
+
+**Thêm một ví dụ nói về việc overfitting khi sử dụng ước lượng phi tham số**
+
+Trên đây là những điểm mạnh, điểm yếu của hai phương pháp ước lượng có tham số và ước lượng phi tham số, chúng ta sẽ tìm hiểu sâu thêm về một vài điển hình của các phương pháp đó trong quyển sách này.
+
+### Đánh đổi giữa khả năng dự báo chính xác (prediction accuracy) và khả năng diễn giải mô hình (model interpretability)
+
+Trong các phương pháp được tác giả sử dụng ở trong quyển sách này, có những phương pháp linh hoạt hơn (flexible), nhưng cũng có phương pháp hạn chế (restrictive) hơn thông thường, có nghĩa là nó sẽ giả thiết một dạng hàm f nào đó linh hoạt, hoặc khắt khe hơn thông thường. Ví dụ, hàm tuyến tính là một dạng hàm khá 

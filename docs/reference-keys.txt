@@ -1,0 +1,14 @@
+real-introduction
+tại-sao-cần-hàm-f
+dự-báo
+suy-diễn
+cách-ước-lượng-hàm-f
+ước-lượng-tham-số-parametric-methods
+uớc-lượng-phi-tham-số-non---parametric-methods
+đánh-đổi-giữa-khả-năng-dự-báo-chính-xác-prediction-accuracy-và-khả-năng-diễn-giải-mô-hình-model-interpretability
+customization
+yaml-options
+theming
+templates
+configuration
+internationalization
